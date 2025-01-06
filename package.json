@@ -1,0 +1,27 @@
+{
+  "name": "levelup",
+  "version": "1.0.0",
+  "description": "levelup application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "./node_modules/.bin/electron-rebuild",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "levelup",
+    "application"
+  ],
+  "author": "levelup team",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "cpu-benchmark": "^1.0.1",
+    "electron-rebuild": "^3.2.9",
+    "network-speed": "^2.1.1",
+    "systeminformation": "^5.24.9"
+  }
+}
