@@ -1,84 +1,21 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.min.css">
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <title>levelup</title>
-  </head>
-  <body id="body">
-    <nav>
-      <div class="nav nav-underline ms-5" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-cpus-tab" data-bs-toggle="tab" data-bs-target="#nav-cpus" type="button" role="tab" aria-controls="nav-cpus" aria-selected="true">CPU</button>
-        <button class="nav-link" id="nav-disks-tab" data-bs-toggle="tab" data-bs-target="#nav-disks" type="button" role="tab" aria-controls="nav-disks" aria-selected="false">DISKS</button>
-        <button class="nav-link" id="nav-system-tab" data-bs-toggle="tab" data-bs-target="#nav-system" type="button" role="tab" aria-controls="nav-system" aria-selected="false">SYSTEM</button>
-        <button class="nav-link" id="nav-graphics-tab" data-bs-toggle="tab" data-bs-target="#nav-graphics" type="button" role="tab" aria-controls="nav-graphics" aria-selected="false">GRAPHICS</button>
-        <button class="nav-link" id="nav-ram-tab" data-bs-toggle="tab" data-bs-target="#nav-ram" type="button" role="tab" aria-controls="nav-ram" aria-selected="false">RAM</button>
-        <button class="nav-link" id="nav-battery-tab" data-bs-toggle="tab" data-bs-target="#nav-battery" type="button" role="tab" aria-controls="nav-battery" aria-selected="false">BATTERY</button>
-        <button class="nav-link" id="nav-networks-tab" data-bs-toggle="tab" data-bs-target="#nav-networks" type="button" role="tab" aria-controls="nav-networks" aria-selected="false">NETWORKS</button>
-        <button class="nav-link" id="nav-benchmarks-tab" data-bs-toggle="tab" data-bs-target="#nav-benchmarks" type="button" role="tab" aria-controls="nav-benchmarks" aria-selected="false">BENCHMARK</button>
-      </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade" id="nav-benchmarks" role="tabpanel" tabindex="0">
-        <div class="container-fluid">
-          <div class="row pt-5 p-2">
-            <div class="col">
-              Benchmark your CPUs
-            </div>
-            <div class="col">
-              <button id="cpus-bench" type="button" class="btn btn-light btn-sm">Start</button>
-            </div>
-            <div class="col">
-              <div id="cpus-result"></div>
-            </div>
-          </div>
-          <div class="row p-2">
-            <div class="col">
-              Benchmark your Disks
-            </div>
-            <div class="col">
-              <button id="disks-bench" type="button" class="btn btn-light btn-sm">Start</button>
-            </div>
-            <div class="col">
-              <div id="disks-result"></div>
-            </div>
-          </div>
-          <div class="row p-2">
-            <div class="col">
-              Test your network (download)
-            </div>
-            <div class="col">
-              <button id="networks-bench" type="button" class="btn btn-light btn-sm">Start</button>
-            </div>
-            <div class="col">
-              <div id="networks-result"></div>
-            </div>
-          </div>
-          <div class="row p-2">
-            <div class="col">
-              Test your network (upload)
-            </div>
-            <div class="col">
-              <button id="networks-2-bench" type="button" class="btn btn-light btn-sm">Start</button>
-            </div>
-            <div class="col">
-              <div id="networks-2-result"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </body>
-  <script src="./renderer.js"></script>
-</html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
+<title>Levelup — Votre PC, en clair</title>
+<link rel="stylesheet" href="css/style.min.css"><script src="theme.js"></script><script src="renderer.js" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+<a class="brand" href="#overview" aria-label="Levelup, accueil"><span class="brand-mark">↗</span><span class="brand-name">levelup<span>.</span></span></a>
+<div class="workspace-label">VOTRE ESPACE MATÉRIEL</div><nav id="navigation" aria-label="Navigation principale"></nav>
+<div class="sidebar-bottom"><div class="local-note"><i></i> Informations locales</div><p>Un regard plus clair sur<br>ce qui fait tourner votre PC.</p><div class="version">LEVELUP <span>v1.1</span></div></div>
+</aside>
+<div class="app-shell">
+<header class="topbar"><div class="breadcrumb">Mon ordinateur <span>/</span> <strong id="breadcrumb-current">Vue d’ensemble</strong></div><button id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="Mode sombre"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Mode sombre</span><span class="switch-track"><span></span></span></button></header>
+<main><div class="page-heading"><div><div class="eyebrow">APPRENEZ À CONNAÎTRE VOTRE PC</div><h1 id="page-title">Vue d’ensemble</h1><p id="page-description">L’essentiel de votre configuration, au même endroit.</p></div><button id="refresh" class="button secondary"><span aria-hidden="true">↻</span> Actualiser</button></div>
+<div class="data-status" id="data-status" role="status" aria-live="polite">Lecture de votre configuration…</div><div id="content" aria-busy="true"></div>
+<footer><span>Votre configuration. Tout simplement.</span><span>Conçu pour y voir plus clair <b>✦</b></span></footer>
+</main></div>
+</body></html>

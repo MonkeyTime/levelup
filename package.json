@@ -1,12 +1,14 @@
 {
   "name": "levelup",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "levelup application",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "postinstall": "./node_modules/.bin/electron-rebuild",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "test": "node --test tests/*.test.js",
+    "postinstall": "install-electron"
   },
   "keywords": [
     "levelup",
@@ -15,13 +17,29 @@
   "author": "levelup team",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^33.2.1"
+    "@electron-forge/cli": "^8.0.1",
+    "@electron-forge/maker-squirrel": "^8.0.1",
+    "electron": "^45.2.1"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
     "cpu-benchmark": "^1.0.1",
-    "electron-rebuild": "^3.2.9",
-    "network-speed": "^2.1.1",
-    "systeminformation": "^5.24.9"
+    "electron-squirrel-startup": "^1.0.1",
+    "systeminformation": "^5.33.19"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "config": {
+    "forge": "./forge.config.cjs"
+  },
+  "overrides": {
+    "@electron/asar": {
+      "glob": "^14.0.3",
+      "minimatch": "^11.0.4"
+    },
+    "minimatch": "^11.0.4"
+  },
+  "allowScripts": {
+    "electron-winstaller@5.4.4": true
   }
 }
