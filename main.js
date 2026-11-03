@@ -40,21 +40,24 @@ const createWindow = () => {
     minWidth: 620,
     minHeight: 580,
     backgroundColor: '#f6f7f9',
+    title: 'Levelup',
+    icon: path.join(__dirname, 'assets', process.platform === 'win32' ? 'levelup.ico' : 'levelup.png'),
     autoHideMenuBar: true,
     webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,
         sandbox: true,
-        preload: path.join(app.getAppPath(), 'preload.js')
+        preload: path.join(__dirname, 'preload.js')
       }
   })
 
-  win.loadFile('index.html')
+  win.loadFile(path.join(__dirname, 'index.html'))
 }
 
 app.whenReady().then(() => {
   if (isInstallerEvent) return
 
+  if (process.platform === 'win32') app.setAppUserModelId('com.squirrel.levelup.levelup')
   createWindow()
 
   app.on('activate', () => {

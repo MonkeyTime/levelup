@@ -1,8 +1,11 @@
+const path = require('node:path');
+
 module.exports = {
   packagerConfig: {
     asar: true,
     executableName: 'levelup',
-    ignore: [/^\/(?:tests|docs)(?:\/|$)/],
+    icon: path.join(__dirname, 'assets', 'levelup'),
+    ignore: [/^\/(?:tests|docs|scripts)(?:\/|$)/],
   },
   rebuildConfig: {},
   makers: [
@@ -12,6 +15,7 @@ module.exports = {
       config: {
         name: 'levelup',
         setupExe: 'Levelup-Setup.exe',
+        setupIcon: path.join(__dirname, 'assets', 'levelup.ico'),
       },
     },
   ],

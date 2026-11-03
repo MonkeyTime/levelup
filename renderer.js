@@ -1,4 +1,11 @@
 const paths = {
+ refresh:'<path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 6.1A8 8 0 0 1 20 12M4 12a8 8 0 0 0 13.9 5.9"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
+ moon:'<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>',
+ arrow:'<path d="M4 12h16m-6-6 6 6-6 6"/>',
+ diagonal:'<path d="M6 18 18 6M6 6h12v12"/>',
+ download:'<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+ upload:'<path d="M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5"/>',
  overview:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
  cpus:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v5m6-5v5M9 18v5m6-5v5M1 9h5m-5 6h5m12-6h5m-5 6h5"/><rect x="9" y="9" width="6" height="6"/>',
  ram:'<rect x="2" y="6" width="20" height="11" rx="2"/><path d="M6 10v3m4-3v3m4-3v3m4-3v3M5 17v3m5-3v3m4-3v3m5-3v3"/>',
@@ -29,6 +36,8 @@ const unit = (v,s) => Number(v)>0 ? `${new Intl.NumberFormat('fr-FR',{maximumFra
 const bytes = (v,base=1024) => Number(v)>0 ? `${new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1}).format(v/base**3)} ${base===1024?'Gio':'Go'}` : null;
 const sum = items => items.reduce((n,item)=>n+(Number(item.size)||0),0);
 const icon = key => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[key]}</svg>`;
+document.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=icon(el.dataset.icon);});
+
 document.getElementById('navigation').innerHTML=Object.entries(sections).map(([key,[label]])=>`${key==='benchmarks'?'<div class="nav-divider"></div>':''}<button class="nav-item" data-section="${key}" title="${label}" aria-label="${label}">${icon(key)}<span class="nav-label">${label}</span></button>`).join('');
 document.getElementById('navigation').addEventListener('click',event=>{const b=event.target.closest('[data-section]');if(b)navigate(b.dataset.section);});
 document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();navigate('overview');});
@@ -39,12 +48,12 @@ function navigate(key){
  document.getElementById('breadcrumb-current').textContent=sections[key][0];
  document.getElementById('page-description').textContent=sections[key][1];render();
 }
-function syncTheme(){const dark=document.documentElement.dataset.theme==='dark';document.getElementById('theme-toggle').setAttribute('aria-checked',String(dark));document.getElementById('theme-icon').textContent=dark?'☼':'☾';}
+function syncTheme(){const dark=document.documentElement.dataset.theme==='dark';document.getElementById('theme-toggle').setAttribute('aria-checked',String(dark));document.getElementById('theme-icon').innerHTML=icon(dark?'sun':'moon');}
 document.getElementById('theme-toggle').addEventListener('click',()=>{const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('levelup-theme',theme);}catch{}syncTheme();});
 syncTheme();
 function empty(title,description){return `<div class="empty-state"><h2>${esc(title)}</h2><p>${esc(description)}</p></div>`;}
 function detail(key,title,rows,subtitle=''){return `<article class="detail-card"><div class="detail-header"><span class="card-icon">${icon(key)}</span><div><h2>${value(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:''}</div></div><dl class="specs">${rows.map(([label,v])=>`<div class="spec-row"><dt>${label}</dt><dd>${value(v)}</dd></div>`).join('')}</dl></article>`;}
-function card(key,title,meta,foot){const pending=state.loading&&!(key in state.data)&&!state.errors[key];return `<button class="component-card" data-open="${key}"><span class="card-top"><span class="card-icon">${icon(key)}</span>${sections[key][0]}<span class="card-arrow">↗</span></span><span class="component-value">${pending?'Lecture en cours…':value(state.errors[key]?'Lecture indisponible':title)}</span><span class="component-meta">${esc(meta)}</span><span class="component-foot"><span>${esc(foot)}</span><strong>Voir les détails →</strong></span></button>`;}
+function card(key,title,meta,foot){const pending=state.loading&&!(key in state.data)&&!state.errors[key];return `<button class="component-card" data-open="${key}"><span class="card-top"><span class="card-icon">${icon(key)}</span>${sections[key][0]}<span class="card-arrow">${icon('diagonal')}</span></span><span class="component-value">${pending?'Lecture en cours…':value(state.errors[key]?'Lecture indisponible':title)}</span><span class="component-meta">${esc(meta)}</span><span class="component-foot"><span>${esc(foot)}</span><strong>Voir les détails ${icon('arrow')}</strong></span></button>`;}
 function overview(){
  const {cpus:c={},system:s={},ram:r=[],graphics:g={},disks:d=[],networks:n=[],battery:b={}}=state.data;
  const gpu=(g.controllers||[])[0]||{};const net=n.find(x=>x.operstate==='up'&&!x.internal)||n.find(x=>!x.internal)||{};
@@ -55,7 +64,7 @@ function overview(){
  ${card('disks',bytes(sum(d),1000),`${d.length} disque${d.length>1?'s':''} physique${d.length>1?'s':''} détecté${d.length>1?'s':''}`,d[0]?.type||'Stockage installé')}
  ${card('networks',net.iface||net.ifaceName||'Aucune interface détectée',net.operstate==='up'?'Interface connectée':'État de la connexion',({wireless:'Sans fil',wired:'Ethernet'})[net.type]||net.type||'Réseau')}
  ${card('battery',b.hasBattery?(available(b.percent)?`${b.percent} % de charge`:'Batterie détectée'):'Sur secteur',b.hasBattery?(b.isCharging?'Recharge en cours':'Batterie détectée'):'Aucune batterie détectée','Alimentation')}
- </section><section class="benchmark-banner"><span class="card-icon">${icon('benchmarks')}</span><div><h2>Et si vous testiez votre PC ?</h2><p>Mesurez les performances du processeur et de votre connexion.</p></div><button class="button" data-open="benchmarks">Explorer les tests <span aria-hidden="true">→</span></button></section>`;
+ </section><section class="benchmark-banner"><span class="card-icon">${icon('benchmarks')}</span><div><h2>Et si vous testiez votre PC ?</h2><p>Mesurez les performances du processeur et de votre connexion.</p></div><button class="button" data-open="benchmarks">Explorer les tests ${icon('arrow')}</button></section>`;
 }
 function renderDetails(key){
  const d=state.data[key];
@@ -72,8 +81,8 @@ function renderDetails(key){
  }
  if(!content.innerHTML)content.innerHTML=empty('Aucun composant détecté','Le système ne fournit pas d’informations pour cette catégorie.');
 }
-const tests={cpu:{title:'Processeur',icon:'cpus',description:'Un calcul local pour évaluer la vitesse d’un cœur. L’interface reste disponible pendant le test.',method:'cpuScore'},download:{title:'Téléchargement',icon:'networks',description:'Estimation du débit descendant avec un transfert allant jusqu’à 500 Ko depuis httpbin.org.',method:'downloadScore'},upload:{title:'Envoi',icon:'networks',description:'Estimation du débit montant avec un envoi de 500 Ko vers httpbin.org.',method:'uploadScore'}};
-function renderTests(){content.innerHTML=`<div class="test-grid">${Object.entries(tests).map(([key,t])=>{const r=state.tests[key]||{};return `<article class="test-card"><span class="card-icon">${icon(t.icon)}</span><h2>${t.title}</h2><p>${t.description}</p><button class="button secondary" data-test="${key}" ${r.running?'disabled':''}>${r.running?'Test en cours…':r.text?'Relancer le test':'Lancer le test'} <span aria-hidden="true">→</span></button><div class="test-result${r.error?' error':''}" role="status" aria-live="polite">${r.running?'<span class="loader"></span>Mesure en cours…':esc(r.text||'Prêt à démarrer')}</div></article>`;}).join('')}</div><p class="test-note">Les résultats varient selon l’activité du PC et du réseau. Les tests réseau utilisent Internet et donnent une estimation sur un transfert court. L’indice CPU est local, sans classement comparatif.</p>`;}
+const tests={cpu:{title:'Processeur',icon:'cpus',description:'Un calcul local pour évaluer la vitesse d’un cœur. L’interface reste disponible pendant le test.',method:'cpuScore'},download:{title:'Téléchargement',icon:'download',description:'Estimation du débit descendant avec un transfert allant jusqu’à 500 Ko depuis httpbin.org.',method:'downloadScore'},upload:{title:'Envoi',icon:'upload',description:'Estimation du débit montant avec un envoi de 500 Ko vers httpbin.org.',method:'uploadScore'}};
+function renderTests(){content.innerHTML=`<div class="test-grid">${Object.entries(tests).map(([key,t])=>{const r=state.tests[key]||{};return `<article class="test-card"><span class="card-icon">${icon(t.icon)}</span><h2>${t.title}</h2><p>${t.description}</p><button class="button secondary" data-test="${key}" ${r.running?'disabled':''}>${r.running?'Test en cours…':r.text?'Relancer le test':'Lancer le test'} ${icon('arrow')}</button><div class="test-result${r.error?' error':''}" role="status" aria-live="polite">${r.running?'<span class="loader"></span>Mesure en cours…':esc(r.text||'Prêt à démarrer')}</div></article>`;}).join('')}</div><p class="test-note">Les résultats varient selon l’activité du PC et du réseau. Les tests réseau utilisent Internet et donnent une estimation sur un transfert court. L’indice CPU est local, sans classement comparatif.</p>`;}
 function render(){content.setAttribute('aria-busy',String(state.loading));if(state.current==='overview')overview();else if(state.current==='benchmarks')renderTests();else renderDetails(state.current);}
 content.addEventListener('click',e=>{const open=e.target.closest('[data-open]');if(open){navigate(open.dataset.open);window.scrollTo({top:0});const h=document.getElementById('page-title');h.setAttribute('tabindex','-1');h.focus();}const t=e.target.closest('[data-test]');if(t)runTest(t.dataset.test);});
 async function runTest(key){

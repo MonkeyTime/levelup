@@ -24,6 +24,12 @@ Le mode clair est activé par défaut. Le switch **Mode sombre** mémorise votre
 
 </details>
 
+## Identité visuelle
+
+Le logo Levelup associe un L, des marches et une flèche montante dans les tons violets de l’interface. `assets/levelup.svg` est sa source vectorielle. Il apparaît dans la navigation et le pied de page ; les pictogrammes SVG suivent le thème choisi.
+
+Après une modification du SVG, `npm run icons` régénère le PNG de 512 px et l’ICO contenant neuf tailles de 16 à 256 px. Ils sont utilisés pour la fenêtre, la barre des tâches, l’exécutable, les raccourcis Windows et l’installateur. Relancez `npm run make -- --platform=win32 --arch=x64` pour intégrer ces icônes aux exécutables.
+
 ## Démarrer depuis les sources
 
 Prérequis : Node.js 22.13 ou supérieur (Node.js 24 LTS conseillé).

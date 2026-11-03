@@ -4,18 +4,19 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
 <title>Levelup — Votre PC, en clair</title>
+<link rel="icon" href="assets/levelup.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/style.min.css"><script src="theme.js"></script><script src="renderer.js" defer></script>
 </head>
 <body>
 <aside class="sidebar">
-<a class="brand" href="#overview" aria-label="Levelup, accueil"><span class="brand-mark">↗</span><span class="brand-name">levelup<span>.</span></span></a>
+<a class="brand" href="#overview" aria-label="Levelup, accueil"><img class="brand-mark" src="assets/levelup.svg" width="38" height="38" alt=""><span class="brand-name">levelup<span>.</span></span></a>
 <div class="workspace-label">VOTRE ESPACE MATÉRIEL</div><nav id="navigation" aria-label="Navigation principale"></nav>
-<div class="sidebar-bottom"><div class="local-note"><i></i> Informations locales</div><p>Un regard plus clair sur<br>ce qui fait tourner votre PC.</p><div class="version">LEVELUP <span>v1.1</span></div></div>
+<div class="sidebar-bottom"><div class="local-note"><i></i> Informations locales</div><p>Un regard plus clair sur<br>ce qui fait tourner votre PC.</p><div class="version">LEVELUP <span>v1.1.1</span></div></div>
 </aside>
 <div class="app-shell">
 <header class="topbar"><div class="breadcrumb">Mon ordinateur <span>/</span> <strong id="breadcrumb-current">Vue d’ensemble</strong></div><button id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="Mode sombre"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Mode sombre</span><span class="switch-track"><span></span></span></button></header>
-<main><div class="page-heading"><div><div class="eyebrow">APPRENEZ À CONNAÎTRE VOTRE PC</div><h1 id="page-title">Vue d’ensemble</h1><p id="page-description">L’essentiel de votre configuration, au même endroit.</p></div><button id="refresh" class="button secondary"><span aria-hidden="true">↻</span> Actualiser</button></div>
+<main><div class="page-heading"><div><div class="eyebrow">APPRENEZ À CONNAÎTRE VOTRE PC</div><h1 id="page-title">Vue d’ensemble</h1><p id="page-description">L’essentiel de votre configuration, au même endroit.</p></div><button id="refresh" class="button secondary"><span data-icon="refresh" aria-hidden="true"></span> Actualiser</button></div>
 <div class="data-status" id="data-status" role="status" aria-live="polite">Lecture de votre configuration…</div><div id="content" aria-busy="true"></div>
-<footer><span>Votre configuration. Tout simplement.</span><span>Conçu pour y voir plus clair <b>✦</b></span></footer>
+<footer><span>Votre configuration. Tout simplement.</span><span>Conçu pour y voir plus clair <img src="assets/levelup.svg" width="16" height="16" alt=""></span></footer>
 </main></div>
 </body></html>

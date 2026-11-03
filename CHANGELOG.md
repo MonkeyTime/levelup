@@ -1,5 +1,13 @@
 # Historique des versions
 
+## 1.1.1 — 3 novembre 2026
+
+- Nouveau logo Levelup utilisé dans la navigation et le pied de page.
+- Icônes dédiées pour la fenêtre, la barre des tâches, l’exécutable Windows et l’installateur Squirrel.
+- Pictogrammes SVG cohérents pour les actions, les thèmes et les tests réseau.
+- Script `npm run icons` pour régénérer les fichiers PNG et ICO à partir du logo SVG.
+- Chemins de chargement de l’interface et du preload résolus depuis le dossier de l’application.
+
 ## 1.1.0 — 2 novembre 2026
 
 - Nouvelle vue d’ensemble de la configuration et navigation latérale.

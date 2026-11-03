@@ -1,6 +1,6 @@
 {
   "name": "levelup",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "levelup application",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "test": "node --test tests/*.test.js",
-    "postinstall": "install-electron"
+    "postinstall": "install-electron",
+    "icons": "node scripts/generate-icons.cjs"
   },
   "keywords": [
     "levelup",
@@ -19,7 +20,8 @@
   "devDependencies": {
     "@electron-forge/cli": "^8.0.1",
     "@electron-forge/maker-squirrel": "^8.0.1",
-    "electron": "^45.2.1"
+    "electron": "^45.2.1",
+    "@resvg/resvg-js": "^2.6.2"
   },
   "dependencies": {
     "cpu-benchmark": "^1.0.1",
