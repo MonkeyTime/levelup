@@ -16,7 +16,7 @@
     "application"
   ],
   "author": "levelup team",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^8.0.1",
     "@electron-forge/maker-squirrel": "^8.0.1",

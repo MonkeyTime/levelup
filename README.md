@@ -89,3 +89,7 @@ npm run make -- --platform=win32 --arch=x64
 L’installateur se trouve dans `out/make/squirrel.windows/x64/Levelup-Setup.exe`. Forge 8 ne propose plus la commande `import` : les scripts et les makers sont déjà déclarés dans `package.json` et `forge.config.cjs`.
 
 Avec npm 12, `allowScripts` autorise le script d’installation d’`electron-winstaller`, nécessaire pour sélectionner le binaire 7-Zip de la machine de compilation.
+
+## Licence
+
+Levelup est distribué sous [licence MIT](LICENSE).
